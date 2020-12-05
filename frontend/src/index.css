@@ -1,0 +1,12 @@
+main {
+  min-height: 80vh;
+}
+header {
+  min-height: 10vh;
+}
+.navbar {
+  min-height: inherit;
+}
+footer {
+  min-height: 10vh;
+}
