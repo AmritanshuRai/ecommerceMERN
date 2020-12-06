@@ -55,7 +55,7 @@ const ProductScreen = ({ match }) => {
           </Card>
         </Col>
       </Row>
-      <Row>Description : {product.description}</Row>
+      <Row className='my-2'>Description : {product.description}</Row>
     </>
   );
 };
