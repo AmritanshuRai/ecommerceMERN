@@ -23,7 +23,8 @@ router.get(
         message: 'Product not found',
       });
     }
-    return res.json(product);
+    res.status(404);
+    throw new Error('Product not found');
   })
 );
 
