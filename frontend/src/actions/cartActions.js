@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from '../constant/cartConstants';
+import { CART_ADD_ITEM } from '../constants/cartConstant';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const url = `/api/products/${id}`;
