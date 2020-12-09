@@ -1,32 +1,35 @@
-import { useState, useEffect } from 'react';
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import { listProductDetails } from '../actions/productActions';
+
 // import products from '../products';
 
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState([]);
+  const dispatch = useDispatch();
+  let productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    (async function () {
-      const url = `/api/products/${match.params.id}`;
-      let response = await fetch(url);
-      const p = await response.json();
-      setProduct(p);
-    })();
-  }, [match.params.id]);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch, match]);
 
   return (
     <>
+      {loading && <Loader />}
+      {error && <Message variant='danger'>{error}</Message>}
       <Link className='btn btn-light my-3' to='/'>
         Go back
       </Link>
       <Row>
-        <Col md={6}>
+        <Col lg={6}>
           <Image src={product.image} alt={product.name} fluid />
         </Col>
-        <Col md={3}>
+        <Col lg={3}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>{product.name}</h2>
@@ -41,7 +44,7 @@ const ProductScreen = ({ match }) => {
             {/* <ListGroup.Item>Description : {product.description}</ListGroup.Item> */}
           </ListGroup>
         </Col>
-        <Col md={3}>
+        <Col lg={3}>
           <Card>
             <ListGroup>
               <ListGroup.Item variant='flush'>
