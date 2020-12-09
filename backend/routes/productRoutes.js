@@ -7,7 +7,8 @@ router.get(
   '/',
   asyncHandler(async (req, res) => {
     const products = await Product.find({});
-
+    // res.status(404);
+    // throw new Error('Lauda lag gaya');
     return res.json(products);
   })
 );
@@ -15,8 +16,6 @@ router.get(
 router.get(
   '/:id',
   asyncHandler(async (req, res) => {
-    console.log('req.params.id: ', req.params.id);
-
     const product = await Product.findById(req.params.id);
     if (!product) {
       res.status(404);
