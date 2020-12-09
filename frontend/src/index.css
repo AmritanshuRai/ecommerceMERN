@@ -10,3 +10,6 @@ header {
 footer {
   min-height: 10vh;
 }
+.selectForm {
+  padding: 0.75rem 0.2rem;
+}
