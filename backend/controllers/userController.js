@@ -60,6 +60,30 @@ const getUserProfile = asyncHandler(async (req, res) => {
     throw new Error('user not found');
   }
 });
+
+const updateUserProfile = asyncHandler(async (req, res) => {
+  if (req.user) {
+    console.log('req.user: ', req.user);
+    req.user.name = req.body.name || req.user.name;
+    req.user.email = req.body.email || req.user.email;
+    if (req.body.password) {
+      req.user.password = req.body.password;
+    }
+    const updatedUser = await req.user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('user not found');
+  }
+});
+
 exports.authUser = authUser;
 exports.getUserProfile = getUserProfile;
 exports.registerUser = registerUser;
+exports.updateUserProfile = updateUserProfile;
