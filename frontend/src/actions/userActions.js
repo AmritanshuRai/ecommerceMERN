@@ -5,6 +5,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
   USER_LOGOUT,
 } from '../constants/userConstant';
 
@@ -57,5 +60,31 @@ export const register = (name, email, password) => async (dispatch) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({ type: USER_REGISTER_FAIL, payload: error.message });
+  }
+};
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_DETAILS_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const url = `/api/users/${id}`;
+    let response = await fetch(url, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + userInfo.token,
+      },
+    });
+    const data = await response.json();
+    console.log('data: ', data);
+    if (data.message) {
+      throw new Error(data.message);
+    }
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: USER_DETAILS_FAIL, payload: error.message });
   }
 };
