@@ -50,6 +50,7 @@ const ProfileScreen = ({ history }) => {
         {loading && <Loader />}
         {error && <Message variant='danger'>{error}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
+        {message && <Message variant='success'>{message}</Message>}
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='name'>
