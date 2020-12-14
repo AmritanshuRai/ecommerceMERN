@@ -49,7 +49,6 @@ export const userDetailReducer = (state = { user: {} }, action) => {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true };
     case USER_DETAILS_SUCCESS:
-      console.log('USER_DETAILS_SUCCESS: ', USER_DETAILS_SUCCESS);
       return { loading: false, user: action.payload };
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };

@@ -30,6 +30,11 @@ const orderSchema = mongoose.Schema(
           required: true,
           ref: 'Product',
         },
+        itemsPrice: {
+          type: Number,
+          required: true,
+          default: 0.0,
+        },
       },
     ],
     shippingAddress: {
