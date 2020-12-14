@@ -35,7 +35,7 @@ const orderSchema = mongoose.Schema(
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },
-      postalCodes: { type: String, required: true },
+      postalCode: { type: String, required: true },
       address: { type: String, required: true },
       country: { type: String, required: true },
     },
@@ -44,14 +44,13 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     paymentResult: {
-      id: { type: String, required: true },
-      status: { type: String, required: true },
-      update_time: { type: String, required: true },
-      email_address: { type: String, required: true },
+      id: { type: String },
+      status: { type: String },
+      update_time: { type: String },
+      email_address: { type: String },
     },
     taxPrice: {
       type: Number,
-      required: true,
       default: 0.0,
     },
     shippingPrice: {
